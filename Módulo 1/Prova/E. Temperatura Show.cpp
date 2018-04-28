@@ -4,28 +4,40 @@ using namespace std;
 
 int main() {
 
-    int N, K, Q, Min, Max;
-    cin >> N >> K >> Q;
-    vector<pair<int, int>> Livros, Chiquinha;
-    int V[Q] = {};
+    int N, K, Q, l, r, Delta[200001] = {}, Recomendacoes[200001] = {}, Show[200001] = {}, Soma[200002] = {};
+    scanf("%d %d %d", &N, &K, &Q);
 
     for (int i = 0; i < N; i++) {
-        scanf("%d %d", &Min, &Max);
-        Livros.push_back(make_pair(Min, Max));
-    }
-    for (int i = 0; i < Q; i++) {
-        scanf("%d %d", &Min, &Max);
-        Chiquinha.push_back(make_pair(Min, Max));
+        scanf("%d %d", &l, &r);
+        Delta[l]++;
+        Delta[r + 1]--;
     }
 
-    sort(Livros.begin(), Livros.end());
-    sort(Chiquinha.begin(), Chiquinha.end());
+    int Aux = 0;
 
-    for (int i = 0; i < Q; i++) {
-        for (int j = Chiquinha[i].first; j <= Chiquinha[i].second; j++) {
-            
+    for (int i = 0; i < 200001; i++) {
+        Aux += Delta[i];
+        Recomendacoes[i] = Aux;
+    }
+
+    for (int i = 0; i < 200001; i++) {
+        if(Recomendacoes[i] >= K) {
+            Show[i] = 1;
         }
+    }
+
+    Aux = 0;
+
+    for (int i = 1; i < 200002; i++) {
+        Aux += Show[i];
+        Soma[i] = Aux;
+    }
+
+    for (int i = 0; i < Q; i++) {
+        scanf("%d %d", &l, &r);
+        printf("%d\n", Soma[r] - Soma[l - 1]);
     }
 
     return 0;
 }
+close
