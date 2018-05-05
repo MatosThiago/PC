@@ -4,25 +4,25 @@ using namespace std;
 
 int main() {
 
-    long long N, O, Q, Aux, Liar;
-    scanf("%lld %lld %lld", &N, &O, &Q);
-    vector<long long> B;
+    int N, O, Q;
+    scanf("%d %d %d", &N, &O, &Q);
+    vector<long long> Batatas(O + 1, 0);
+    long long Aux;
+    int Liar;
 
-    for(int i = 0; i < O; i++) {
+    Batatas[0] = N;
+    for(int i = 1; i < O + 1; i++) {
         scanf("%lld", &Aux);
-        B.push_back(Aux);
+        Batatas[i] = Batatas[i - 1] + Aux;
     }
 
-    for(long long j, i = 0; i < Q; i++) {
+    for(int i = 0; i < Q; i++) {
         scanf("%lld", &Aux);
-        Liar = N;
-        for(j = 0; j < O && Liar < Aux; j++) {
-            Liar += B[j];
-        }
-        if(j == O && Liar < Aux) {
-            printf("-1\n");
+        Liar = lower_bound(Batatas.begin(), Batatas.end(), Aux) - Batatas.begin();
+        if(Liar < Batatas.size()) {
+            printf("%d\n", Liar);
         } else {
-            printf("%lld\n", j);
+            printf("-1\n");
         }
     }
 
