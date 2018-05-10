@@ -104,4 +104,3 @@ int f(long long X, long long k) {
         return 0;
     }
 }
-close
