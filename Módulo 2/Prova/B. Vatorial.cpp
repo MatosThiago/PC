@@ -12,7 +12,7 @@ int main() {
     for(int i = 1; i <= Aux; i++) {
         N = (N * 2) % 1000000007;
     }
-
+    
     printf("%lld\n", N);
 
     return 0;

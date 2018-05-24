@@ -41,4 +41,8 @@ int f(long long X, long long k) {
     } else {
         return 0;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 99163f8a0ff67fc744f300cfc7212fcf19001847
