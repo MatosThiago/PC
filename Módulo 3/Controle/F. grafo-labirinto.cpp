@@ -76,74 +76,35 @@ class Graph {
 
             return distance;
         }
-        void bfs(int v) {
-            queue<int> q;
-            vector<bool> visited(nodes, false);
-
-            q.push(v);
-
-            while(!q.empty()) {
-                v = q.front();
-                printf("%d\n", v);
-                q.pop();
-                visited[v] = true;
-
-                for(int i:graph[v]) {
-                    if(!visited[i]) {
-                        q.push(i);
-                    }
-                }
-            }
-        }
-        void dfs(int v) {
-            stack<int> s;
-            vector<bool> visited(nodes, false);
-
-            while(true) {
-                if(!visited[v]) {
-                    s.push(v);
-                    visited[v] = true;
-                }
-
-                bool unvisited = false;
-                auto i = graph[v].begin();
-
-                while(i != graph[v].end()) {
-                    if(!visited[*i]) {
-                        unvisited = true;
-                        break;
-                    }
-                    i++;
-                }
-
-                if(unvisited) {
-                    v = *i;
-                } else {
-                    printf("%d\n", s.top());
-                    s.pop();
-                    if(s.empty()) {
-                        break;
-                    }
-                    v = s.top();
-                }
-            }
-        }
 };
 
 int main() {
 
-    Graph G(15);
+    int w, h, q;
+    scanf("%d %d %d", &w, &h, &q);
 
-    G.make_path(8, 3);
-    G.make_path(8, 10);
-    G.make_path(3, 1);
-    G.make_path(3, 6);
-    G.make_path(10, 14);
-    G.make_path(6, 4);
-    G.make_path(6, 7);
-    G.make_path(14, 13);
+    Graph G(w);
 
-    printf("%d\n", G.distance_between_vertices(1, 1));
+    for(auto i = 0; i < h; i++) {
+        for(auto j = 0; j < w; j++) {
+            char c;
+            cin >> c;
+            cin.ignore();
+
+            if(c == '.') {
+                if(!G.has_path(i, j)) {
+                    G.make_path(i, j);
+                }
+            }
+        }
+    }
+
+    for(auto i = 0; i < q; i++) {
+        int x1, y1, x2, y2;
+        scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
+
+        printf("%d\n", G.distance_between_vertices(x1, x2));
+    }
 
     return 0;
 }
